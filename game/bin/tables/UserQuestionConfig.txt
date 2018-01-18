@@ -1,0 +1,31 @@
+Id	Desc	Title	LevelLimit	MultipleChoice	Options
+INT	STRING	STRING	INT	BOOL	STRING
+#MAX_ID=10;MAX_RECORD=10;TableType=Hash;					
+#ID	描述				
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端				
+0		"Thank you for experiencing the current version of “Clsh of Tribes”, our game is still on a very early version of the development process, there may be a lot of bug. Thank you for your understanding.Your feedback is very important to us."	0	0	0
+1		1. What's your age please?	0	0	A.Age18~24|B.Age25~35|C.Age36~45|D.Age46+
+2		2. What's your gender？	0	0	A.Male|B.Female
+3		3. What's your education level?	0	0	A.Junior high school or below|B.High school|C.College|D.Bachelor degree or above
+4		4. What's your job？	0	0	A.students|B.staff|C.manager|D.Civil servants|E.Others
+5		5. How about your salary？	0	0	A.Less than 1000$|B.1000$ - 2500$|C.2500$ - 3500$|D.3500$ - 5500$|E.Above 5500$
+6		6. Where do you prefer searching games？（Multiple）	0	1	A.Facebook|B.Snapchat|C.Discuz|D.YouTube|E.Others
+7		7. Are you playing these games recently？（Multiple）	0	1	A.ClashRoyale、BrawlStars、GolfClash|B.Gardenscapes / Hay day|C.Game of war / clash of clans / mobile strike|D.Candy crush saga / candy crush soda|E.Others
+8		8. Do you have these games installed on your smart phone？（Multiple）	0	1	A.ClashRoyale|B.ClashOfKings|C.BrawlStar|D.CandyCrush|E.HayDay
+9		9. Are you willing to pay for the games installed on your smart phone？	0	0	A.Yes|B.No
+10		"Thank you for your feedback, your support will be our greatest motivation. Wish you enjoy the game!"	0	0	0
+11		"Thank you for experiencing the current version of “Clsh of Tribes”, our game is still on a very early version of the development process, there may be a lot of bug. Thank you for your understanding.Your feedback is very important to us."	4	0	0
+12		1. Do you like the UI designing？	4	0	"A.Yes,I like|B.No,I don't|C.No senses"
+13		2. Which character do you like bes？	4	0	A.Kirov|B.Golden Rabbit |C.Amber|D.Mamluk 
+14		3. Do you think is’t difficult to control in the game？	4	0	A.Easy|B.Normal|C. Hard|D.No senses
+15		4. Which one do you prefer？charging automatically  or charging manually when fighting？	4	0	A.Automatically|B.Manually|C.I don‘t know
+16		5. Which do you prefer?   Automatically targeting skills or Manually targeting skills ?	4	0	A.Automatically targeting skills|B.Manually targeting skills|C.I don‘t know
+17		6. which attack mode is not  reasonable for you？	4	0	A.Kirov|B.Golden Rabbit |C.Amber |D. Mamluk 
+18		7. Is it easy to understand the “Clsh of Tribes”？Will you remix them before starting the game? 	4	0	"A.No, I won't  do that|B.Yes, I will|C.I don‘t know"
+19		8. Which one do you prefer between battlefield style and art style ？	4	0	A.SkyGarden|B.BurningIsland
+20		9. Which play mode do you like better？	4	0	A.SkyGarden|B.BurningIsland
+21		12. Do you have the problem such as dropped off the line？	4	1	A.Attacking effect|B.Distinguish the enemy|C.Career Difference|D.Goals to the victory
+22		11. Will there be a long time waiting when matching PVP enemies？	4	0	"A.Very good|B.Sometimes, but it's OK|C.Frequently, almost can't start PVP game"
+23		12. Do you have the problem such as dropped off the line？	4	0	"A.Yes, Frequently.Can't play anymore|B.Sometimes|C.Seldom|D.No，It's good！"
+24		13. What’s your interests on further version of the game？	4	0	A.New Character|B.New Map|C.New play mode|D.More optional career remix
+25		"Thank you for your feedback, your support will be our greatest motivation. Wish you enjoy the game!"	4	0	0

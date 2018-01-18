@@ -1,0 +1,72 @@
+start = 0;
+
+function(CenterCallbackObj)
+{
+  this.onNameHandleChanged=function()
+  {
+    start = 1;
+  };
+  this.onMessage=function()
+  {
+  };
+  this.onCommand=function()
+  {
+    @src=$1;
+    @dest=$2;
+    @cmd=$3;
+    print("onCommand:"+@src+"->"+@dest+":"+@cmd);
+  };
+};
+
+function(doCmd)
+{
+  @name = $0;
+  @cmd = $1;
+  if(client.targetHandle(@name)>0){
+    client.sendCommandByName(@name,@cmd);
+  };
+};
+
+function(main)
+{
+  @obj = new(CenterCallbackObj);
+  client.setCallback(@obj);
+  client.setConnectInfo("admin","127.0.0.1",20000);
+  @notfoundCount = 0;
+  @runningCount = 0;
+  for(@ct=0;;++@ct){
+    client.tick();
+    if(client.isConnected()){
+      if(start>0){
+        if(0==(@ct % 100)){
+          if(client.targetHandle("DataStoreNode")<=0){
+            ++@notfoundCount;
+            @runningCount = 0;
+            print("quit count:"+@notfoundCount);
+            if(@notfoundCount>=10){
+              print("ok, DataStore quit.");
+              break;
+            };
+          }else{
+            @notfoundCount = 0;            
+            ++@runningCount;
+            if((@runningCount%60)==0){
+              doCmd("DataStoreNode","QuitDataStore");
+              print("request quit DataStore again.");
+            }else{
+              print("DataStore is running...");
+            };
+          };
+        };
+      }else{
+        if(0==(@ct % 100)){
+          print("wait DataStore info");
+        };
+      };
+    };
+    sleep(10);
+  };
+  client.disconnect();
+};
+
+return main();

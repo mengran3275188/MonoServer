@@ -1,0 +1,20 @@
+STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING
+机器外网IP	机器内网IP	服务器名称	当前ServerID	ZONE ID	大世界组ID	当前世界ID	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value	key	value
+127.0.0.1	127.0.0.1	LOCAL_CENTER	0	1	0	1	端口	20000																														
+127.0.0.1	127.0.0.1	LOCAL_LOBBY	1	1	0	1	开服时间	20150301	日志版本	v1.9	客户端日志	1	商店掩码	0	状态	程序																						
+127.0.0.1	127.0.0.1	LOCAL_STORE	2	1	0	1	DB	127.0.0.1																														
+127.0.0.1	127.0.0.1	LOCAL_BRIDGE	3	1	0	1																																
+127.0.0.1	127.0.0.1	LOCAL_NODE	4	1	0	1																																
+127.0.0.1	127.0.0.1	LOCAL_ROOM	20	1	0	1																																
+47.93.1.108	127.0.0.1	ALIYUN_CENTER	0	1	0	101	端口	20000																														
+47.93.1.108	127.0.0.1	ALIYUN_LOBBY	1	1	0	101	开服时间	20150301	日志版本	v1.9	客户端日志	1	商店掩码	0	状态	程序																						
+47.93.1.108	127.0.0.1	ALIYUN_STORE	2	1	0	101	DB	127.0.0.1																														
+47.93.1.108	127.0.0.1	ALIYUN_BRIDGE	3	1	0	101																																
+47.93.1.108	127.0.0.1	ALIYUN_NODE	4	1	0	101																																
+47.93.1.108	127.0.0.1	ALIYUN_ROOM	20	1	0	101																																
+10.12.2.125	127.0.0.1	WANMEIYUN_CENTER	0	1	0	1	端口	20000																														
+10.12.2.125	127.0.0.1	WANMEIYUN_LOBBY	1	1	0	1	开服时间	20150301	日志版本	v1.9	客户端日志	1	商店掩码	0	状态	程序																						
+10.12.2.125	127.0.0.1	WANMEIYUN_STORE	2	1	0	1	DB	127.0.0.1																														
+10.12.2.125	127.0.0.1	WANMEIYUN_BRIDGE	3	1	0	1																																
+10.12.2.125	127.0.0.1	WANMEIYUN_NODE	4	1	0	1																																
+10.12.2.125	127.0.0.1	WANMEIYUN_ROOM	20	1	0	1																																

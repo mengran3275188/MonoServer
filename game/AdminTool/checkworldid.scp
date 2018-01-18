@@ -1,0 +1,50 @@
+cfgTable=createConfigTable("./config/ServerConfigList.txt");
+logFile=("./log/checkworldid_"+serverType+"_"+getLogFileId()+".log");
+
+function(log)
+{
+	print(""+$0);
+	writeString(logFile,""+$0);
+};
+
+function(main)
+{
+	stringMap.initMap(1000);
+	@ip0=readString("./etc/ip.txt",0);
+	if(@ip0=="")
+	{
+		log("找不到当前机器IP！");	
+		return 1;	
+	};
+	log("当前机器外网IP："+@ip0);
+	
+	@rIndex=cfgTable.findByIP0(0,@ip0);
+	if(@rIndex>=0)
+	{
+		log("当前机器配置行:"+@rIndex);
+	}
+	else
+	{
+		log("找不到当前机器配置！");
+		return 1;
+	};
+	@sname=cfgTable.getServerName(@rIndex);
+	log("当前SERVER名："+@sname);
+	@sid=cfgTable.getServerID(@rIndex);
+	@zid=cfgTable.getZoneID(@rIndex);
+	@bid=cfgTable.getBigworldID(@rIndex);
+	@wid=cfgTable.getWorldID(@rIndex);
+	log("当前机器信息：[serverid,zoneid,bigworldid,worldid]:"+@sid+","+@zid+","+@bid+","+@wid);
+	if(argc!=2){
+	  log("必须指定world id！");
+	  return 1;
+	};
+	@expectedWorldId = str2int(argv(1));
+	if(@wid != @expectedWorldId){
+	  log("world id 不匹配！");
+	  return 1;
+	};
+	return 0;
+};
+
+return main();

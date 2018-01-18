@@ -1,0 +1,44 @@
+function(CenterCallbackObj)
+{
+  this.onNameHandleChanged=function()
+  {
+  };
+  this.onMessage=function()
+  {
+  };
+  this.onCommand=function()
+  {
+    @src=$1;
+    @dest=$2;
+    @cmd=$3;
+    print("onCommand:"+@src+"->"+@dest+":"+@cmd);
+  };
+};
+
+function(doCmd)
+{
+  @name = $0;
+  @cmd = $1;
+  if(client.targetHandle(@name)>0){
+    client.sendCommandByName(@name,@cmd);
+  };
+};
+
+function(main)
+{
+  @obj = new(CenterCallbackObj);
+  client.setCallback(@obj);
+  client.setConnectInfo("admin","127.0.0.1",20000);
+  for(@ct=0;@ct<100;++@ct){
+    client.tick();
+    if(client.isConnected()){
+      doCmd("Lobby","MaxWorldChatNum 100000");
+      doCmd("Lobby","MaxSystemWorldChatNum 5");
+      print("connected.");
+    };
+    sleep(10);
+  };
+  client.disconnect();
+};
+
+return main();

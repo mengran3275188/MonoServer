@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /home/mrdTomcat/mono/bin/mono --debug $MONO_OPTIONS /home/mrdTomcat/mono/lib/mono/2.0/nunit-console.exe "$@"

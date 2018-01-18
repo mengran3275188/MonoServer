@@ -1,0 +1,9 @@
+Id	Desc	OccupyRangeType	OccupyPointRange	AddOccupyTimePerSecond_01	AddOccupyTimePerSecond_02	AddOccupyTimePerSecond_03	AddOccupyTimePerSecond_04	AddOccupyTimePerSecond_05	MaxOccupyTime	StrongholdResNumPerSecond	MaxStrongholdResNum	EnterOverTimePercent	OverTimeLength	StrongholdResTipNum	UIOccupyIndex	SceneOccupyEffectId	SceneNormalEffectId	TribeOccupyEffectId	NpcOccupyEffectId	NpcNormalEffectId
+INT	STRING	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT
+#MAX_ID=4096;MAX_RECORD=4096;TableType=Hash;																				
+#角色ID	描述（程序不读）	据点范围类型(0:圆形 1：方形)	据点范围(米)(半径、边长)	1个人占领增加时间（毫秒）	2个人占领增加时间（毫秒）	3个人占领增加时间（毫秒）	4个人占领增加时间（毫秒）	5个人占领增加时间（毫秒）	最大占领时间（毫秒）	每秒收益资源量	最大资源收益	进入加时百分比	加时时长（毫秒）	资源提示	UI排序	占据优势场景指示特效	正常场景指示特效	占据角色单体特效Id	Npc占据特效Id	Npc正常特效Id
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端																			
+10001	新手战场（空中花园_抢金币）_战场金币生成区域中心点001	1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	-1	-1	-1	-1	-1
+10002	新手战场（空中花园_抢金币）_战场金币生成区域中心点002	1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	-1	-1	-1	-1	-1
+10003	新手战场（空中花园_抢金币）_战场金币生成区域中心点003	1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	-1	-1	-1	-1	-1
+10004	新手战场（空中花园_抢金币）_战场金币生成区域中心点004	1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	-1	-1	-1	-1	-1

@@ -1,0 +1,6 @@
+Id	Desc	Name	Icon	Tips	ClassID	SubClassID	Quality	MinLevelRequire	MaxLevelRequire	CanUse	SellPrice	SellMoneyType	MaxStackSize	ProfessionRequire	SortId	CompoundType	CompondLevel	MaxStorageCount	HyperLinkColor	SoundID	ExistTime	DropIcon	DropScaling	DropEffectId	CanThrow	Exp	IsNeedAddRemind
+INT	STRING	STRING	STRING	STRING	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	STRING	FLOAT	INT	INT	INT	INT
+#MAX_ID=99999;MAX_RECORD=10240;TableType=Hash;																											
+#ID	（本列程序不读）	名称	图标	描述	物品分类ID	次级分类ID	品质	需求等级下限	需求等级上限	可以使用	卖出价格	卖出货币类型(0铜币1元宝)	最大堆叠数量	职业需求(-1无)	排序显示ID	合成类别	合成级别	最大持有量	聊天栏名字颜色	音效	有效时间（单位分钟 配置上限一年即512640）	掉落显示图标	掉落图标比例	掉落特效	是否可以丢弃	经验(装备强化)	获得时是否需要弹提示
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端																										
+1	补给品				3	2	4	1	200	0	1	0	99	-1	8900	1	1	9999	3	1	-1	DiaoLuo_XuanTie	0.005	-1	0	10000	1

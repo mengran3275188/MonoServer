@@ -1,0 +1,6 @@
+Id	Desc	PointRange	ImpactID_01	ImpactID_02
+INT	STRING	INT	INT	INT
+#MAX_ID=4096;MAX_RECORD=4096;TableType=Hash;				
+#角色ID	描述（程序不读）	据点范围(米)(半径、边长)	ImpactID01	ImpactID02
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端			
+10001	新手战场（空中花园）_抢金币模式_中央圆盘持续补血区域	10	11	-1

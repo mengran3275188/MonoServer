@@ -1,0 +1,246 @@
+cfgTable=createConfigTable("./bin/config/ServerConfigList.txt");
+runServerFile = ("./run.sh");
+
+centerId = 0;
+lobbyId = 1;
+storeId = 2;
+bridgeId = 3;
+firstNodeJsId = 4;
+firstRoomServerId = 20;
+
+function(log)
+{
+	print(""+$0);
+};
+
+function(main)
+{
+	stringMap.initMap(1000);
+	@ip0=readString("./bin/etc/ip.txt",0);
+	if(@ip0=="")
+	{
+		log("找不到当前机器IP！");		
+	};
+	log("当前机器外网IP："+@ip0);
+	@rIndex=0;
+	for(@ct=0;;++@ct)
+	{
+  	@rIndex=cfgTable.findByIP0(@rIndex,@ip0);
+  	if(@rIndex>=0)
+  	{
+  		//log("当前机器运行服务器配置行:"+@rIndex);
+  	}
+  	else
+  	{
+  		break;
+  	};
+  	@sname=cfgTable.getServerName(@rIndex);
+  	log("SERVER名："+@sname);
+  	@sid=cfgTable.getServerID(@rIndex);
+  	@zid=cfgTable.getZoneID(@rIndex);
+  	@bid=cfgTable.getBigworldID(@rIndex);
+  	@wid=cfgTable.getWorldID(@rIndex);
+  	++@rIndex;
+  	//log("当前机器运行服务器信息：[serverid,zoneid,bigworldid,worldid]:"+@sid+","+@zid+","+@bid+","+@wid);
+    if(@sid==centerId){
+      log("本机将运行servercenter服务器");
+      stringMap.insert("center","nohup ./ServerCenter 2>&1 >log/center_$(date +%F).txt &
+echo start ServerCenter
+sleep 3");
+    }elseif(@sid==lobbyId){
+      if(@bid==@wid){
+        log("本机将运行bigworldlobby服务器");
+        stringMap.insert("lobby","nohup mono BigworldLobby.exe 1>/dev/null 2>log/lobby_$(date +%F).txt &
+echo start Bigworld
+sleep 1");
+      }else{
+        log("本机将运行lobby服务器");
+        stringMap.insert("lobby","nohup mono Lobby.exe 1>/dev/null 2>log/lobby_$(date +%F).txt &
+echo start Lobby
+sleep 1");
+      };
+    }elseif(@sid==storeId){
+       log("本机将运行datastore服务器");
+       stringMap.insert("store","nohup mono DataStoreNode.exe 1>/dev/null 2>log/store_$(date +%F).txt &
+echo start DataStoreNode
+sleep 3");
+    }elseif(@sid==bridgeId){
+      log("本机将运行serverbridge服务器");
+      stringMap.insert("bridge1","nohup mono ServerBridge.exe 1>/dev/null 2>log/bridge_$(date +%F).txt &
+echo start ServerBridge");
+      stringMap.insert("bridge2","nohup ./node nodejs/billingcallback.js 12 2>&1 >log/billing_$(date +%F).txt &
+echo start BillingCallback");
+    }elseif(@sid>=firstNodeJsId && @sid<firstRoomServerId){
+      if(@bid==@wid){
+        log("本机将运行语音与GmPortal服务器");
+        stringMap.insert("nodejs7","nohup /home/mrdTomcat/openresty/nginx/sbin/nginx -p /home/mrdTomcat/openresty/nginx/sbin -c /home/mrdTomcat/openresty/nginx/conf/nginx.conf 2>&1 >log/nginx_$(date +%F).txt &
+echo start nginx");
+        stringMap.insert("nodejs8","nohup ./node nodejs/gmportal.js 11 2>&1 >log/node_$(date +%F)_8.txt &
+echo start NodeJs8");
+      }else{
+        log("本机将运行nodejs服务器");
+        stringMap.insert("nodejs1","nohup ./node nodejs/app.js 4 2>&1 >log/node_$(date +%F)_1.txt &
+echo start NodeJs1");
+        stringMap.insert("nodejs2","nohup ./node nodejs/app.js 5 2>&1 >log/node_$(date +%F)_2.txt &
+echo start NodeJs2");
+        stringMap.insert("nodejs3","nohup ./node nodejs/app.js 6 2>&1 >log/node_$(date +%F)_3.txt &
+echo start NodeJs3");
+        stringMap.insert("nodejs4","nohup ./node nodejs/app.js 7 2>&1 >log/node_$(date +%F)_4.txt &
+echo start NodeJs4");
+        stringMap.insert("nodejs5","nohup ./node nodejs/app.js 8 2>&1 >log/node_$(date +%F)_5.txt &
+echo start NodeJs5");
+        stringMap.insert("nodejs6","nohup ./node nodejs/app.js 9 2>&1 >log/node_$(date +%F)_6.txt &
+echo start NodeJs6");
+      };
+    }elseif(@sid>=firstRoomServerId){
+        stringMap.insert("roomserver1","nohup mono DashFireServer.exe 20 1>/dev/null 2>log/roomserver_$(date +%F)_1.txt &
+echo start RoomServer1");
+      //stringMap.insert("roomserver2","nohup mono DashFireServer.exe 21 1>/dev/null 2>log/roomserver_$(date +%F)_2.txt &
+//echo start RoomServer2");
+      //stringMap.insert("roomserver3","nohup mono DashFireServer.exe 22 1>/dev/null 2>log/roomserver_$(date +%F)_3.txt &
+//echo start RoomServer3");
+      //stringMap.insert("roomserver4","nohup mono DashFireServer.exe 23 1>/dev/null 2>log/roomserver_$(date +%F)_4.txt &
+//echo start RoomServer4");
+      //stringMap.insert("roomserver5","nohup mono DashFireServer.exe 24 1>/dev/null 2>log/roomserver_$(date +%F)_5.txt &
+//echo start RoomServer5");
+      //stringMap.insert("roomserver6","nohup mono DashFireServer.exe 25 1>/dev/null 2>log/roomserver_$(date +%F)_6.txt &
+//echo start RoomServer6");   
+    }else{
+      log("忽略服务器id:"+@sid+"，这种类型的服务器需要手工编写启停服脚本！");
+    };
+	};
+	if(@ct<=0){
+	  log("找不到当前机器配置信息，不是目标服务器么？");
+	  return (-1);
+	};
+	//
+	system("rm -f "+runServerFile);
+	//
+	writeString(runServerFile,"#!/bin/bash");
+	writeString(runServerFile,"");
+	writeString(runServerFile,"MONO_ROOT_DIR=$(cat mono_path);");
+	writeString(runServerFile,"export PATH=.:$MONO_ROOT_DIR/bin:$PATH");
+	writeString(runServerFile,"export LD_LIBRARY_PATH=.:$MONO_ROOT_DIR/lib:/home/mrdTomcat/openresty/nginx/sbin:$LD_LIBRARY_PATH");
+	writeString(runServerFile,"#export MONO_PATH=$MONO_ROOT_DIR/lib");
+	writeString(runServerFile,"export WORLD_ID="+@wid);
+	writeString(runServerFile,"");
+	writeString(runServerFile,"cd bin");
+	
+	writeString(runServerFile, "
+echo \"check world id ...\"
+./AdminTool ../AdminTool/checkworldid.scp $1
+
+if [ \"$?\" -ne \"0\" ]; then
+  exit 1
+fi;	
+	");
+	
+	@scp = stringMap.find("center");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	};
+	writeString(runServerFile,"");	
+	@scp = stringMap.find("lobby");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("store");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("bridge1");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("bridge2");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs1");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	/*
+	@scp = stringMap.find("nodejs2");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs3");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs4");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs5");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs6");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	*/
+	@scp = stringMap.find("nodejs7");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("nodejs8");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver1");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver2");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver3");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver4");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver5");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	@scp = stringMap.find("roomserver6");
+	if(@scp!=""){
+	  writeString(runServerFile,@scp);
+	  writeString(runServerFile,"");
+	};
+	writeString(runServerFile,"echo DFM server ready.");
+	writeString(runServerFile,"exit 0");
+
+  print("-----------------------------------")
+	system("cat "+runServerFile);
+  print("-----------------------------------")
+	//
+	log("启停服脚本生成完毕！");
+	return 0;
+};
+
+return main();

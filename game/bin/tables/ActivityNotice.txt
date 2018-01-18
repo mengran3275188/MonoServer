@@ -1,0 +1,5 @@
+Id	Desc	LowLevel	MaxLevel	NoticeType	TimeType	NoticeTime	NoticDicID
+INT	STRING	INT	INT	INT	INT	INT	INT
+#MAX_ID=499;MAX_RECORD=500;TableType=Hash;							
+#ID(索引不可跳跃)	策划维护(活动名)	接受消息最低等级	接受消息最高等级	公告类型(1:系统公告;2:滚动公告)	时间控制类型(1:仅执行一次(yymmddhhhmm);2:每天执行一次(hhmm);3:每周执行一次(whhmm);4:每月执行一次(ddhhmm))	时间(1:仅执行一次(yymmddhhhmm);2:每天执行一次(hhmm);3:每周执行一次(whhmm);4:每月执行一次(ddhhmm))	公告（StrDictionary.txt字典号）
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端						

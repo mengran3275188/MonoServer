@@ -1,0 +1,7 @@
+Id	Desc	Name	CharModelID	BuffID1	BuffID2	BuffID3	BuffID4	BuffID5	BuffID6	BuffID7	BuffID8	BuffID9	BuffID10
+INT	STRING	STRING	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT	INT
+#MAX_ID=4096;MAX_RECORD=4096;TableType=Hash;													
+#角色ID	描述（程序不读）	名称	CharModel表ID	BuffID	BuffID	BuffID	BuffID	BuffID	BuffID	BuffID	BuffID	BuffID	BuffID
+#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端												
+0	图腾	图腾	34	0	0	0	0	0	0	0	0	0	0
+	暂时废弃该表，待“竞技模式”设计之后再行启用												

@@ -1,0 +1,47 @@
+start=0;
+
+function(CenterCallbackObj)
+{
+  this.onNameHandleChanged=function()
+  {
+    start=1;
+  };
+  this.onMessage=function()
+  {
+  };
+  this.onCommand=function()
+  {
+    @src=$1;
+    @dest=$2;
+    @cmd=$3;
+    print("onCommand:"+@src+"->"+@dest+":"+@cmd);
+  };
+};
+
+function(main)
+{
+  @obj = new(CenterCallbackObj);
+  client.setCallback(@obj);
+  client.setConnectInfo("admin","127.0.0.1",20000);
+  for(@ct=0;@ct<1000;++@ct){
+    client.tick();
+    if(client.isConnected()){
+      if(start>0){
+        if(0==(@ct % 100)){
+          client.sendCommandByHandle(0,"quit(0);");
+          print("quit center.");          
+        };
+      }else{
+        if(0==(@ct % 100)){
+          print("wait center info.");
+        };
+      };
+    }elseif(start>0){
+      break;
+    };
+    sleep(10);
+  };
+  client.disconnect();
+};
+
+return main();
