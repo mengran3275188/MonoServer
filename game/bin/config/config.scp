@@ -87,72 +87,12 @@ function(main)
 	log("当前机器信息：[serverid,zoneid,bigworldid,worldid]:"+@sid+","+@zid+","+@bid+","+@wid);
 	stringMap.insert("worldid",""+@wid);
 	@rIndex=cfgTable.findByID(0,@zid,@bid,@bid,gmPortalId);
-	if(@rIndex>0){
-	  @gmIp = cfgTable.getIP0(@rIndex);
-	  if(serverType=="nodejs"){
-	    stringMap.insert("voiceip",@gmIp);
-	    log("voiceip:"+@gmIp);
-	  };
-	};
-	//
-	if(serverType=="roomserver"){
-	  if(@sid<firstRoomServerId){
-    	@rIndex=cfgTable.findByID(0,@zid,@bid,@wid,firstRoomServerId);
-    	if(@rIndex>=0)
-    	{
-    			log("roomserver机器配置行:"+@rIndex);
-    	}
-    	else
-    	{
-    		log("找不到roomserver机器配置！");
-    		return 0;
-    	};		  
-		};
-		stringMap.insert("ServerIp",@ip0);
-	};
-	//
-	if(serverType=="center"){
-	  stringMap.insert("name","Center");
-	}elseif(serverType=="lobby"){
-	  stringMap.insert("name","Lobby");
-	}elseif(serverType=="database"){
-	  stringMap.insert("name","DatabaseServer");
-	}elseif(serverType=="bridge"){
-	  stringMap.insert("name","ServerBridge");
-	}elseif(serverType=="gmserver"){
-	  stringMap.insert("name","GmServer");
-	}elseif(serverType=="nodejs"){
-	  @sid = toint(argv(1));
-	  if(@sid>=firstNodeJsId && @sid<firstRoomServerId){
-	    stringMap.insert("name","NodeJs"+(@sid-firstNodeJsId+1));
-	    stringMap.insert("nodejsport",""+(@sid-firstNodeJsId+9001));
-	  }else{
-	    stringMap.insert("name","NodeJs1");
-	    stringMap.insert("nodejsport","9001");
-	  };
-	}elseif(serverType=="roomserver"){
-	  @portSid = toint(argv(0));
-	  if(@sid<firstRoomServerId){
-	    @sid = firstRoomServerId;
-	  };
-	  if(@portSid>=firstRoomServerId){
-	    stringMap.insert("name","RoomSvr"+(@sid-firstRoomServerId+@portSid-firstRoomServerId+1));
-		  stringMap.insert("ServerPort",""+(@portSid-firstRoomServerId+9521));
-	  }else{
-	    stringMap.insert("name","RoomSvr1");
-    	if(@bid==@wid){
-  		  stringMap.insert("ServerPort","9529");
-    	}else{
-  		  stringMap.insert("ServerPort","9528");
-  		};
-	  };
-	};
-	
+
 	//查找center配置
 	@rIndex=cfgTable.findByID(0,@zid,@bid,@wid,0);
 	if(@rIndex>=0)
 	{
-			log("center机器配置行:"+@rIndex);
+		log("center机器配置行:"+@rIndex);
 	}
 	else
 	{
@@ -171,11 +111,11 @@ function(main)
 	log("center ip/port:"+@ip1+"/"+@port);
 		
 	//查找store配置
-	if(serverType=="store" || serverType=="gmserver"){	  
+	if(serverType=="database" || serverType=="gmserver"){	  
   	@rIndex=cfgTable.findByID(0,@zid,@bid,@wid,2);
   	if(@rIndex>=0)
   	{
-  			log("store机器配置行:"+@rIndex);
+  		log("store机器配置行:"+@rIndex);
   	}
   	else
   	{
@@ -192,58 +132,98 @@ function(main)
 	@rIndex=cfgTable.findByID(0,@zid,@bid,@wid,1);
 	if(@rIndex>=0)
 	{
-			log("lobby机器配置行:"+@rIndex);
+		log("lobby机器配置行:"+@rIndex);
 	}
 	else
 	{
 		log("找不到lobby机器配置！");
 		return 0;
 	};
-	if(serverType=="lobby"){
-  	@startServerTime=cfgTable.getValueByKey(@rIndex,"开服时间");
-	  stringMap.insert("StartServerTime",@startServerTime);
-  	@logVer=cfgTable.getValueByKey(@rIndex,"日志版本");
-	  stringMap.insert("LogNormVersion",@logVer);
-  	@shopMask=cfgTable.getValueByKey(@rIndex,"商店掩码");
-	  stringMap.insert("shopmask",@shopMask);	 	  
-	  
-  	if(@bid!=@wid){
-  	  //普通世界
-  	  @brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
-  	  if(@brIndex>=0){
-  	    @bip1=cfgTable.getIP1(@brIndex);
-    	  @bport = cfgTable.getValueByKey(@brIndex,"端口");
-  	    stringMap.insert("centernum","2");
-  	    stringMap.insert("ip0",@ip1);
-  	    stringMap.insert("port0",@port);
-  	    stringMap.insert("worldid0",""+@wid);
-  	    stringMap.insert("name0","Lobby");
-  	    stringMap.insert("ip1",@bip1);
-  	    stringMap.insert("port1",@bport);
-  	    stringMap.insert("worldid1",""+@bid);
-  	    stringMap.insert("name1","Lobby"+@wid);
-  	  }else{
-  	    stringMap.insert("centernum","1");
-  	    stringMap.insert("ip0",@ip1);
-  	    stringMap.insert("port0",@port);
-  	    stringMap.insert("worldid0",""+@wid);
-  	    stringMap.insert("name0","Lobby");
-  	  };
-  	};
+	
+	if(serverType=="gmserver"){
+	  stringMap.insert("name","GmServer");
 	};
-	if(serverType=="nodejs"){
-  	@clientLog=cfgTable.getValueByKey(@rIndex,"客户端日志");
-	  stringMap.insert("enableclientlog",@clientLog);
-  	@shopMask=cfgTable.getValueByKey(@rIndex,"商店掩码");
-	  stringMap.insert("shopmask",@shopMask);
+	if(serverType=="center")
+	{
+		stringMap.insert("name","Center");
+		@sid = toint(argv(0));
+		if(@sid > 0)
+		{
+			// main center
+			@brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
+			log(@brIndex);
+			if(@brIndex >=0)
+			{
+				@bport = cfgTable.getValueByKey(@brIndex,"端口");
+				stringMap.insert("port",@bport);
+			};
+			
+		};
+	};
+	if(serverType=="lobby"){
+		stringMap.insert("name","Lobby");
+		@startServerTime=cfgTable.getValueByKey(@rIndex,"开服时间");
+		stringMap.insert("StartServerTime",@startServerTime);
+		@logVer=cfgTable.getValueByKey(@rIndex,"日志版本");
+		stringMap.insert("LogNormVersion",@logVer);
+		@shopMask=cfgTable.getValueByKey(@rIndex,"商店掩码");
+		stringMap.insert("shopmask",@shopMask);	 	  
+	  
+		if(@bid!=@wid){
+			//普通世界
+			@brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
+			if(@brIndex>=0){
+				@bip1=cfgTable.getIP1(@brIndex);
+				@bport = cfgTable.getValueByKey(@brIndex,"端口");
+				stringMap.insert("centernum","2");
+				stringMap.insert("ip0",@ip1);
+				stringMap.insert("port0",@port);
+				stringMap.insert("worldid0",""+@wid);
+				stringMap.insert("name0","Lobby");
+				stringMap.insert("ip1",@bip1);
+				stringMap.insert("port1",@bport);
+				stringMap.insert("worldid1",""+@bid);
+				stringMap.insert("name1","Lobby"+@wid);
+			}else{
+				stringMap.insert("centernum","1");
+				stringMap.insert("ip0",@ip1);
+				stringMap.insert("port0",@port);
+				stringMap.insert("worldid0",""+@wid);
+				stringMap.insert("name0","Lobby");
+			};
+		};
+	};
+	if(serverType=="bwlobby"){
+		stringMap.insert("name","BWLobby");
+		@brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
+		if(@brIndex>=0){
+				@bip1=cfgTable.getIP1(@brIndex);
+				@bport = cfgTable.getValueByKey(@brIndex,"端口");
+				stringMap.insert("centernum","1");
+				stringMap.insert("ip0",@bip1);
+				stringMap.insert("port0",@bport);
+				stringMap.insert("worldid0",""+@wid);
+				stringMap.insert("name0","BWLobby");
+		};
 	};
 	if(serverType=="battleserver"){
 		stringMap.insert("name","BattleServer");
-		stringMap.insert("centernum","1");
-		stringMap.insert("ip0", @ip1);
-		stringMap.insert("port0", @port);
-		stringMap.insert("worldid0",""+@wid);
-		stringMap.insert("name0","BattleServer");
+		
+		@brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
+		@sid = toint(argv(0));
+		@serverIndex=cfgTable.findByID(0,@zid,@bid,@bid,@sid);
+		if(@brIndex>=0 && @serverIndex>=0){
+				@bip1=cfgTable.getIP1(@brIndex);
+				@bport = cfgTable.getValueByKey(@brIndex,"端口");
+				stringMap.insert("centernum","1");
+				stringMap.insert("ip0",@bip1);
+				stringMap.insert("port0",@bport);
+				stringMap.insert("worldid0",""+@wid);
+				stringMap.insert("name0","BattleServer" + @sid);
+				@sport = cfgTable.getValueByKey(@serverIndex,"端口");
+				stringMap.insert("ServerPort",@sport);
+				stringMap.insert("ServerIp", @ip0);
+		};
 	};
 	if(serverType=="database"){
 		stringMap.insert("name","DatabaseServer");
@@ -257,16 +237,6 @@ function(main)
 	stateName=cfgTable.getValueByKey(@rIndex,"状态");
 	
 	handleState();
-	
-	/*
-	if(serverType=="store"){
-	  @db = stringMap.find("Database");
-	  stringMap.insert("Database",@db+"_"+@wid);
-	}elseif(serverType=="gmserver"){
-	  @db = stringMap.find("Database");
-	  stringMap.insert("Database",@db+"_"+@wid);
-	};
-	*/
 	
 	log("配置项处理完成：");
 	stringMap.listMap(logFile);
