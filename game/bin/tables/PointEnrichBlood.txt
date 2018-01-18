@@ -1,6 +1,0 @@
-Id	Desc	Name	CharModelID	ImpactID	AvailableEffectID	CDEffectID	AffectingEffectID
-INT	STRING	STRING	INT	INT	INT	INT	INT
-#MAX_ID=4096;MAX_RECORD=4096;TableType=Hash;							
-#角色ID	描述（程序不读）	名称	CharModel表ID	ImpactID	可用状态特效ID	冷却状态特效ID	作用状态特效ID
-#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端						
-1	战场通用_补血道具001	液态能量罐	409004	11	301	302	303

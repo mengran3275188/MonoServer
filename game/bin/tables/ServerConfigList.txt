@@ -1,6 +1,0 @@
-Id	Desc	StartTime	StartTimeForExpLimit	SelfIp	PortForClient	PortForGMI	PortForNewGM	MemList	MemOpen	ThreadCount	DBName	DBUser	DBPsw	DBThreadCount	MaxOnlinePlayingPlayer	MaxOnlineQueuingPlayer	MergeStatus	MergeServerCount	CDKeyOpen	BindPhoneOpen	SendVipMailOpen
-INT	STRING	STRING	STRING	STRING	INT	INT	INT	STRING	INT	INT	STRING	STRING	STRING	INT	INT	INT	INT	INT	INT	INT	INT
-#MAX_ID=39999;MAX_RECORD=40000;TableType=Hash;																					
-#ID	程序不读	"开服时间（年[00,40]月[01,12]日[01,31]时[00,23]分[00,59]）"	"计算经验上限开服时间（年[00,40]月[01,12]日[01,31]时[00,23]分[00,59]）"															本次合服的服务器数量	是否开启兑奖码功能	是否开启手机绑定	是否给大V推送邮件
-#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端																				
-100	测试	1408050000	1408050000	124.248.42.31	2231	2232	2233	127.0.0.1:11211	1	32				12	4000	600	0	0	0	1	1

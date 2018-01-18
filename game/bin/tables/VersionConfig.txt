@@ -1,6 +1,0 @@
-Id	Desc	Version
-INT	STRING	STRING
-#MAX_ID=10;MAX_RECORD=10;TableType=Hash;		
-#	描述	
-#此行必须有!!客户端确定是否需要读到内存	规则为填写S则不读，否则就会读取到客户端	
-0	版本号	1.0.5

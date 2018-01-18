@@ -27,8 +27,5 @@ nohup mono Lobby.exe>/dev/null 2>log/lobby_$(date +%F).txt &
 echo start Lobby
 sleep 1
 
-nohup mono BattleServer.exe>/dev/null 2>log/battleserver_$(date +%F)_1.txt &
-echo start BattleServer
-
 echo DFM server ready.
 exit 0
