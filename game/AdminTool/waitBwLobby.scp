@@ -39,27 +39,27 @@ function(main)
     if(client.isConnected()){
       if(start>0){
         if(0==(@ct % 100)){
-          if(client.targetHandle("DatabaseServer")<=0){
+          if(client.targetHandle("BWLobby")<=0){
             ++@notfoundCount;
             print("quit count:"+@notfoundCount);
             if(@notfoundCount>=10){
-              print("ok, Database quit.");
+              print("ok, bwlobby quit.");
               break;
             };
           }else{
             @notfoundCount = 0;            
             ++@runningCount;
             if((@runningCount%60)==0){
-              doCmd("DatabaseServer","QuitDatabase");
-              print("request quit Database again.");
+              doCmd("BWLobby","QuitBwLobby");
+              print("request quit bwlobby again.");
             }else{
-              print("Database is running...");
+              print("bwlobby is running...");
             };
           };
         };
       }else{
         if(0==(@ct % 100)){
-          print("wait lobby info");
+          print("wait bwlobby info");
         };
       };
     };

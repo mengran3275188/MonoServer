@@ -31,7 +31,7 @@ function(main)
 {
   @obj = new(CenterCallbackObj);
   client.setCallback(@obj);
-  client.setConnectInfo("admin","127.0.0.1",20000);
+  client.setConnectInfo("admin","127.0.0.1",30000);
   @notfoundCount = 0;
   @runningCount = 0;
   for(@ct=0;@ct<100000;++@ct){
