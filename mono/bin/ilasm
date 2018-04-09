@@ -1,2 +1,0 @@
-#!/bin/sh
-exec /home/mrdTomcat/mono/bin/mono $MONO_OPTIONS /home/mrdTomcat/mono/lib/mono/4.5/ilasm.exe "$@"

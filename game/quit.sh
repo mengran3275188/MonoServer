@@ -13,7 +13,7 @@ echo wait database last save
 echo quit bwLobby
 ./AdminTool ../AdminTool/quitBwLobby.scp
 echo wait bwLobby last save
-./AdminTool ../AdminTool/quitBwLobby.scp
+./AdminTool ../AdminTool/waitBwLobby.scp
 
 echo quit bwDatabase
 ./AdminTool ../AdminTool/quitBwDatabase.scp

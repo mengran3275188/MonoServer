@@ -184,6 +184,7 @@ function(main)
 				stringMap.insert("port1",@bport);
 				stringMap.insert("worldid1",""+@bid);
 				stringMap.insert("name1","Lobby"+@wid);
+				stringMap.insert("ServerIp", @ip0);
 			}else{
 				stringMap.insert("centernum","1");
 				stringMap.insert("ip0",@ip1);
@@ -232,6 +233,19 @@ function(main)
 		stringMap.insert("port0", @port);
 		stringMap.insert("worldid0",""+@wid);
 		stringMap.insert("name0","DatabaseServer");
+	};
+	if(serverType=="login"){
+		stringMap.insert("name","LoginServer");
+		@brIndex=cfgTable.findByID(0,@zid,@bid,@bid,0);
+		if(@brIndex>=0){
+			@bip1=cfgTable.getIP1(@brIndex);
+			@bport = cfgTable.getValueByKey(@brIndex,"¶Ë¿Ú");
+			stringMap.insert("centernum","1");
+			stringMap.insert("ip0",@bip1);
+			stringMap.insert("port0",@bport);
+			stringMap.insert("worldid0",""+@wid);
+			stringMap.insert("name0","LoginServer");
+		};
 	};
   
 	stateName=cfgTable.getValueByKey(@rIndex,"×´Ì¬");

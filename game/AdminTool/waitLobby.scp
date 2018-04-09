@@ -34,16 +34,17 @@ function(main)
   client.setConnectInfo("admin","127.0.0.1",20000);
   @notfoundCount = 0;
   @runningCount = 0;
-  for(@ct=0;@ct<100000;++@ct){
+  for(@ct=0;;++@ct){
     client.tick();
     if(client.isConnected()){
       if(start>0){
         if(0==(@ct % 100)){
           if(client.targetHandle("Lobby")<=0){
             ++@notfoundCount;
+            @runningCount = 0;
             print("quit count:"+@notfoundCount);
             if(@notfoundCount>=10){
-              print("ok, lobby quit.");
+              print("ok, Lobby quit.");
               break;
             };
           }else{
@@ -59,7 +60,7 @@ function(main)
         };
       }else{
         if(0==(@ct % 100)){
-          print("wait lobby info");
+          print("wait Lobby info");
         };
       };
     };

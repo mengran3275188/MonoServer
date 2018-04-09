@@ -31,19 +31,20 @@ function(main)
 {
   @obj = new(CenterCallbackObj);
   client.setCallback(@obj);
-  client.setConnectInfo("admin","127.0.0.1",20000);
+  client.setConnectInfo("admin","127.0.0.1",30000);
   @notfoundCount = 0;
   @runningCount = 0;
-  for(@ct=0;@ct<100000;++@ct){
+  for(@ct=0;;++@ct){
     client.tick();
     if(client.isConnected()){
       if(start>0){
         if(0==(@ct % 100)){
           if(client.targetHandle("BWLobby")<=0){
             ++@notfoundCount;
+            @runningCount = 0;
             print("quit count:"+@notfoundCount);
             if(@notfoundCount>=10){
-              print("ok, bwlobby quit.");
+              print("ok, BwLobby quit.");
               break;
             };
           }else{
@@ -51,15 +52,15 @@ function(main)
             ++@runningCount;
             if((@runningCount%60)==0){
               doCmd("BWLobby","QuitBwLobby");
-              print("request quit bwlobby again.");
+              print("request quit BwLobby again.");
             }else{
-              print("bwlobby is running...");
+              print("BwLobby is running...");
             };
           };
         };
       }else{
         if(0==(@ct % 100)){
-          print("wait bwlobby info");
+          print("wait BwLobby info");
         };
       };
     };

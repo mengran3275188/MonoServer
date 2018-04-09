@@ -34,16 +34,17 @@ function(main)
   client.setConnectInfo("admin","127.0.0.1",20000);
   @notfoundCount = 0;
   @runningCount = 0;
-  for(@ct=0;@ct<100000;++@ct){
+  for(@ct=0;;++@ct){
     client.tick();
     if(client.isConnected()){
       if(start>0){
         if(0==(@ct % 100)){
           if(client.targetHandle("DatabaseServer")<=0){
             ++@notfoundCount;
+            @runningCount = 0;
             print("quit count:"+@notfoundCount);
             if(@notfoundCount>=10){
-              print("ok, Database quit.");
+              print("ok, database quit.");
               break;
             };
           }else{
@@ -51,15 +52,15 @@ function(main)
             ++@runningCount;
             if((@runningCount%60)==0){
               doCmd("DatabaseServer","QuitDatabase");
-              print("request quit Database again.");
+              print("request quit database again.");
             }else{
-              print("Database is running...");
+              print("database is running...");
             };
           };
         };
       }else{
         if(0==(@ct % 100)){
-          print("wait lobby info");
+          print("wait database info");
         };
       };
     };
