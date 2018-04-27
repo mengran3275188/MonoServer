@@ -19,6 +19,11 @@ nohup ./ServerCenter>&1 >log/center_$(date +%F).txt &
 echo start ServerCenter
 sleep 3
 
+nohup mono LoginServer.exe>/dev/null 2>log/loginserver_$(date +%F).txt &
+echo start LoginServer
+sleep 1
+
+
 nohup mono DatabaseServer.exe>/dev/null 2>log/database_$(date +%F).txt &
 echo start Database
 sleep 1
