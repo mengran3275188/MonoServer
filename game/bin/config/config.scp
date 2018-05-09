@@ -62,6 +62,7 @@ function(main)
 {
 	stringMap.initMap(1000);
 	@ip0=readString("./etc/ip.txt",0);
+	@ver=readString("./etc/ver.txt",0);
 	if(@ip0=="")
 	{
 		log("找不到当前机器IP！");		
@@ -168,6 +169,7 @@ function(main)
 		stringMap.insert("LogNormVersion",@logVer);
 		@shopMask=cfgTable.getValueByKey(@rIndex,"商店掩码");
 		stringMap.insert("shopmask",@shopMask);	 	  
+		stringMap.insert("version", @ver);
 	  
 		if(@bid!=@wid){
 			//普通世界
@@ -185,12 +187,6 @@ function(main)
 				stringMap.insert("worldid1",""+@bid);
 				stringMap.insert("name1","Lobby"+@wid);
 				stringMap.insert("ServerIp", @ip0);
-			}else{
-				stringMap.insert("centernum","1");
-				stringMap.insert("ip0",@ip1);
-				stringMap.insert("port0",@port);
-				stringMap.insert("worldid0",""+@wid);
-				stringMap.insert("name0","Lobby");
 			};
 		};
 	};
@@ -224,6 +220,7 @@ function(main)
 				@sport = cfgTable.getValueByKey(@serverIndex,"端口");
 				stringMap.insert("ServerPort",@sport);
 				stringMap.insert("ServerIp", @ip0);
+				stringMap.insert("ServerId", "" + @sid);
 		};
 	};
 	if(serverType=="database"){
