@@ -19,7 +19,7 @@ nohup ./ServerCenter>&1 >log/center_$(date +%F).txt &
 echo start ServerCenter
 sleep 3
 
-nohup mono HttpServer.exe>/dev/null 2>log/httpserver$(date +%F).txt &
+nohup mono HttpServer.exe>/dev/null 2>log/httpserver_$(date +%F).txt &
 echo start HttpServer
 sleep 1
 
