@@ -13,15 +13,11 @@ echo "check world id ..."
 
 if [ "$?" -ne "0" ]; then
   exit 1
-fi;	
-	
+fi;
+
 nohup ./ServerCenter>&1 >log/center_$(date +%F).txt &
 echo start ServerCenter
 sleep 3
-
-nohup mono DatabaseServer.exe>/dev/null 2>log/database_$(date +%F).txt &
-echo start Database
-sleep 1
 
 nohup mono Lobby.exe>/dev/null 2>log/lobby_$(date +%F).txt &
 echo start Lobby

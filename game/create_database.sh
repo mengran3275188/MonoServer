@@ -1,3 +1,1 @@
-mysql -u mengran -p 123456 -e "source /sql/CreateDatabase.sql"
-mysql -u mengran -p 123456 -e "source /sql/CreateDataTables.sql"
-mysql -u mengran -p 123456 -e "source /sql/InitializeData.sql"
+mysql -umengran -p123456 -e "source ./sql/CreateDatabase.sql; source ./sql/CreateDataTables.sql; source ./sql/InitializeData.sql;"
